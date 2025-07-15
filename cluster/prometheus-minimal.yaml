@@ -1,0 +1,24 @@
+server:
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  retention: 2d
+  persistentVolume:
+    enabled: false  # Use emptyDir instead
+  replicas: 1
+
+alertmanager:
+  enabled: false
+
+pushgateway:
+  enabled: false
+
+nodeExporter:
+  enabled: false
+
+kubeStateMetrics:
+  enabled: false
