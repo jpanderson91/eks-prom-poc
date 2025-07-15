@@ -1,1 +1,10 @@
 # custom prometheus/Grafana settings
+# helm/values.yaml
+grafana:
+  service:
+    type: ClusterIP
+  adminPassword: ChangeMe123
+prometheus:
+  prometheusSpec:
+    retention: "2h"
+    scrapeInterval: "15s"
