@@ -3,13 +3,13 @@ kind: ServiceMonitor
 metadata:
   name: prom-example-monitor
   labels:
-    release: prometheus-stack  # must match your helm release name
+    release: prometheus-stack  # must match Helm release name
 spec:
   selector:
     matchLabels:
       app: prom-example
   endpoints:
-  - port: 8080
+  - port: "8080"         # fixed: string instead of integer
     path: /metrics
     interval: 15s
   namespaceSelector:
