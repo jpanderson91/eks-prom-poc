@@ -1,1 +1,16 @@
 # eksctl config
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: prometheus-poc
+  region: us-east-1
+  version: "1.26"
+managedNodeGroups:
+  - name: ng-small
+    instanceType: t3.small     # ~2 vCPU / 2 GiB RAM
+    desiredCapacity: 1
+    minSize: 1
+    maxSize: 1
+    labels: { role: worker }
+    ssh:
+      allow: false
