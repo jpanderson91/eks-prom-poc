@@ -19,3 +19,7 @@
 # sample query, output confirms Prometheus is actively scraping metrics — both from Prometheus instance itself and from the Node Exporter. Those promhttp_metric_handler_requests_total entries are HTTP server metrics — great for system-level observability.
 
 <img width="1067" height="800" alt="image" src="https://github.com/user-attachments/assets/ee4d232a-0802-43b9-b5a5-88b595fe296b" />
+
+#Grafana
+
+<img width="1025" height="1189" alt="image" src="https://github.com/user-attachments/assets/a29ad02b-9214-40d3-9b47-07ed9b2594da" />
