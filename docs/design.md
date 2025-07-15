@@ -1,4 +1,5 @@
 #cluster config snippet
+<img width="706" height="586" alt="image" src="https://github.com/user-attachments/assets/2c8011c0-af71-4d62-8490-bda5cccc6935" />
 
 
 # ascii diagram    
