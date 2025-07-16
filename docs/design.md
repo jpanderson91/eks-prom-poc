@@ -23,3 +23,9 @@
 #Grafana
 
 <img width="1025" height="1189" alt="image" src="https://github.com/user-attachments/assets/a29ad02b-9214-40d3-9b47-07ed9b2594da" />
+
+
+#example dashboard
+
+<img width="1070" height="1758" alt="image" src="https://github.com/user-attachments/assets/214910ad-c4d2-4248-8214-b9e84cf0e601" />
+
