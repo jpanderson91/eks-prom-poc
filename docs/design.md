@@ -29,3 +29,7 @@
 
 <img width="1070" height="1758" alt="image" src="https://github.com/user-attachments/assets/214910ad-c4d2-4248-8214-b9e84cf0e601" />
 
+#deploying again as terraform using https://aws-observability.github.io/terraform-aws-observability-accelerator/helpers/managed-grafana/
+
+<img width="1912" height="1015" alt="image" src="https://github.com/user-attachments/assets/2bc44656-026c-4036-b9ff-641a70a59bc2" />
+
