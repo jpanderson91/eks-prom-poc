@@ -37,7 +37,7 @@
 
 <img width="1910" height="929" alt="image" src="https://github.com/user-attachments/assets/e80b529a-eaa2-470b-9586-89ba3f99baa0" />
 
-#screenshot of dashboard in grafana workplace deployed via terraform with sample data showing
+#This demo showcases a fully automated observability stack using Terraform to provision AWS resources, Amazon Managed Prometheus, and Amazon Managed Grafana. The Terraform configuration creates all required infrastructure, including a Prometheus workspace, IAM roles, a Grafana workspace, and API keys. It also sets up a Grafana TestData data source and deploys a custom dashboard with a variety of panels (time series, stat, gauge, bar gauge, table, and logs), each configured to display sample data for demonstration purposes. This setup illustrates best practices for infrastructure-as-code, cloud-native monitoring, and dashboard automation, making it easy to demonstrate Grafana’s visualization capabilities even without live production data.
 <img width="1074" height="1113" alt="image" src="https://github.com/user-attachments/assets/bc0afea3-a081-4c12-9f5d-bbc2377e2b52" />
 
 
