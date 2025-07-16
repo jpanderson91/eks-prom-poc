@@ -10,3 +10,16 @@
 #screenshot of prometheus setup on t3 small instance
 
 <img width="1070" height="794" alt="image" src="https://github.com/user-attachments/assets/d8b06f91-8dcc-4a14-8929-7b21b1d21d4e" />
+
+
+# confirm prom-example-monitor demo app is in "UP" status
+
+<img width="1074" height="802" alt="image" src="https://github.com/user-attachments/assets/8ad3b913-2b77-43b9-b929-bddc0abce038" />
+
+# sample query, output confirms Prometheus is actively scraping metrics — both from Prometheus instance itself and from the Node Exporter. Those promhttp_metric_handler_requests_total entries are HTTP server metrics — great for system-level observability.
+
+<img width="1067" height="800" alt="image" src="https://github.com/user-attachments/assets/ee4d232a-0802-43b9-b5a5-88b595fe296b" />
+
+#Grafana
+
+<img width="1025" height="1189" alt="image" src="https://github.com/user-attachments/assets/a29ad02b-9214-40d3-9b47-07ed9b2594da" />
