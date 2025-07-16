@@ -37,6 +37,10 @@
 
 <img width="1910" height="929" alt="image" src="https://github.com/user-attachments/assets/e80b529a-eaa2-470b-9586-89ba3f99baa0" />
 
+#screenshot of dashboard in grafana workplace deployed via terraform with sample data showing
+<img width="1074" height="1113" alt="image" src="https://github.com/user-attachments/assets/bc0afea3-a081-4c12-9f5d-bbc2377e2b52" />
+
+
 #destroying to avoid cost
 
 <img width="1907" height="717" alt="image" src="https://github.com/user-attachments/assets/0e720411-eed4-4d83-bb6a-51f432515f03" />
