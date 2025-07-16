@@ -37,3 +37,8 @@
 
 <img width="1910" height="929" alt="image" src="https://github.com/user-attachments/assets/e80b529a-eaa2-470b-9586-89ba3f99baa0" />
 
+#destroying to avoid cost
+
+<img width="1907" height="717" alt="image" src="https://github.com/user-attachments/assets/0e720411-eed4-4d83-bb6a-51f432515f03" />
+
+
