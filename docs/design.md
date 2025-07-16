@@ -33,3 +33,7 @@
 
 <img width="1912" height="1015" alt="image" src="https://github.com/user-attachments/assets/2bc44656-026c-4036-b9ff-641a70a59bc2" />
 
+#screenshot of grafana workspace deployed via terraform
+
+<img width="1910" height="929" alt="image" src="https://github.com/user-attachments/assets/e80b529a-eaa2-470b-9586-89ba3f99baa0" />
+
