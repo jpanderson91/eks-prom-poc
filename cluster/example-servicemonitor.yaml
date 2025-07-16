@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prom-example-monitor
+  namespace: monitoring
+  labels:
+    release: prometheus-minimal
+spec:
+  selector:
+    matchLabels:
+      app: prom-example
+  namespaceSelector:
+    matchNames:
+      - default
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 30s
