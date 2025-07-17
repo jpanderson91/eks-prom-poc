@@ -1,0 +1,255 @@
+# EKS Monitoring Terraform Deployment - Troubleshooting Guide
+
+## Overview
+This document summarizes the key issues encountered and solutions implemented during the deployment of AWS EKS monitoring infrastructure using Terraform in AWS CloudShell.
+
+## Environment Details
+- **Platform**: AWS CloudShell
+- **Terraform Version**: 1.7.5
+- **AWS Region**: us-east-1
+- **EKS Cluster**: my-cluster
+- **Grafana Workspace ID**: g-336cdb9361
+- **Prometheus Workspace**: ws-99f95003-d683-45bb-b66a-27cd242c79e3
+
+## Critical Issues and Solutions
+
+### 1. Variable Name Error (Primary Issue)
+**Problem**: Using undefined variable `$managed_grafana_workspace_id` instead of correctly defined `$WORKSPACE_ID`
+
+**Error Message**:
+```
+aws: error: argument --workspace-id: expected one argument
+```
+
+**Root Cause**: The variable `$managed_grafana_workspace_id` was never defined, causing AWS CLI to receive an empty value.
+
+**Solution**:
+```bash
+# ❌ WRONG - undefined variable
+export TF_VAR_grafana_api_key=$(aws grafana create-workspace-service-account-token \
+  --workspace-id $managed_grafana_workspace_id \
+  --name "grafana-operator-key-$(date +%s)" \
+  --seconds-to-live 7200 \
+  --service-account-id $GRAFANA_SA_ID \
+  --query 'serviceAccountToken.key' \
+  --output text)
+
+# ✅ CORRECT - using properly defined variable
+export TF_VAR_grafana_api_key=$(aws grafana create-workspace-service-account-token \
+  --workspace-id $WORKSPACE_ID \
+  --name "grafana-operator-key-$(date +%s)" \
+  --seconds-to-live 7200 \
+  --service-account-id $GRAFANA_SA_ID \
+  --query 'serviceAccountToken.key' \
+  --output text)
+```
+
+### 2. AWS CloudShell Disk Space Limitations
+**Problem**: CloudShell home directory limited to ~1GB, causing terraform provider installation failures
+
+**Error Message**:
+```
+Error: Failed to install provider
+Error while installing hashicorp/aws: no space left on device
+```
+
+**Root Cause**: Home directory (`/home/cloudshell-user`) mounted on loop device with limited space.
+
+**Solution**: Move operations to `/tmp` directory with more available space
+```bash
+# Copy project to /tmp with more space
+cp -r ~/terraform-eks-monitoring /tmp/
+cd /tmp/terraform-eks-monitoring/eks-monitoring
+
+# Run terraform operations from /tmp
+terraform init -reconfigure \
+-backend-config="bucket=${TF_VAR_s3_bucket_id}" \
+-backend-config="region=${TF_VAR_aws_region}" \
+-backend-config="key=state/${TF_VAR_eks_cluster_name}/terraform.tfstate"
+```
+
+### 3. Helm Provider Version Compatibility
+**Problem**: Syntax incompatibility between Terraform configuration and Helm provider versions
+
+**Error Messages**:
+```
+Error: Unsupported block type
+Blocks of type "set" are not expected here.
+
+Error: Unsupported argument
+An argument named "kubernetes" is not expected here.
+```
+
+**Root Cause**: Configuration written for different Helm provider version syntax.
+
+**Solutions**:
+
+**Option A - Constrain Provider Version**:
+```bash
+# Edit versions.tf to constrain Helm provider
+sed -i 's/version = ">= 2.4.1"/version = "~> 2.15.0"/' versions.tf
+rm .terraform.lock.hcl
+terraform init -reconfigure
+```
+
+**Option B - Fix Syntax for Installed Version**:
+```bash
+# For older Helm providers, use block syntax
+sed -i 's/kubernetes = {/kubernetes {/' main.tf
+```
+
+### 4. Environment Variable Persistence
+**Problem**: Environment variables not persisting across directory changes
+
+**Solution**: Re-export all required variables after directory changes
+```bash
+# Complete environment setup
+export TF_VAR_aws_region=us-east-1
+export TF_VAR_amg_endpoint=https://g-336cdb9361.grafana-workspace.us-east-1.amazonaws.com/
+export TF_VAR_eks_cluster_name=my-cluster
+export TF_VAR_amp_ws_arn=arn:aws:aps:us-east-1:643275918916:workspace/ws-99f95003-d683-45bb-b66a-27cd242c79e3
+export TF_VAR_s3_bucket_id=johns-account-terraform-state
+export WORKSPACE_ID="g-336cdb9361"
+export GRAFANA_SA_ID=2
+
+# Create Grafana API key with correct variable
+export TF_VAR_grafana_api_key=$(aws grafana create-workspace-service-account-token \
+  --workspace-id $WORKSPACE_ID \
+  --name "grafana-operator-key-$(date +%s)" \
+  --seconds-to-live 7200 \
+  --service-account-id $GRAFANA_SA_ID \
+  --query 'serviceAccountToken.key' \
+  --output text)
+```
+
+## Final Working Configuration
+
+### Working Directory Structure
+```
+/tmp/terraform-eks-monitoring/
+├── eks-monitoring/
+│   ├── main.tf (with corrected helm provider syntax)
+│   ├── variables.tf
+│   ├── versions.tf (with constrained helm provider)
+│   └── outputs.tf
+├── modules/
+└── LICENSE
+```
+
+### Key Environment Variables
+```bash
+WORKSPACE_ID="g-336cdb9361"
+GRAFANA_SA_ID=2
+TF_VAR_aws_region=us-east-1
+TF_VAR_amg_endpoint=https://g-336cdb9361.grafana-workspace.us-east-1.amazonaws.com/
+TF_VAR_eks_cluster_name=my-cluster
+TF_VAR_amp_ws_arn=arn:aws:aps:us-east-1:643275918916:workspace/ws-99f95003-d683-45bb-b66a-27cd242c79e3
+TF_VAR_s3_bucket_id=johns-account-terraform-state
+TF_VAR_grafana_api_key=[Generated token]
+```
+
+### Terraform Provider Configuration
+```hcl
+# versions.tf
+terraform {
+  required_providers {
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.15.0"  # Constrained version
+    }
+  }
+}
+
+# main.tf - Helm provider with block syntax
+provider "helm" {
+  kubernetes {  # Block syntax for older providers
+    host                   = local.eks_cluster_endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
+    token                  = data.aws_eks_cluster_auth.this.token
+  }
+}
+```
+
+## Successful Deployment Results
+
+### Terraform Plan Output
+```
+Plan: 34 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
++ eks_cluster_id                        = "my-cluster"
++ eks_cluster_version                   = "1.33"
++ managed_prometheus_workspace_endpoint = "https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-99f95003-d683-45bb-b66a-27cd242c79e3"
++ managed_prometheus_workspace_id       = "ws-99f95003-d683-45bb-b66a-27cd242c79e3"
++ managed_prometheus_workspace_region   = "us-east-1"
+```
+
+### Deployed Resources (34 total)
+- Grafana dashboards for EKS monitoring
+- Prometheus configuration and scraping rules
+- Alert rules for cluster health monitoring
+- External secrets integration
+- Amazon CloudWatch Observability addon
+- Kube State Metrics and Node Exporter
+- RBAC roles and service accounts
+- Flux CD for GitOps deployment
+
+## Key Lessons Learned
+
+### 1. Variable Naming Precision
+- **Always verify variable names** before use
+- **Use consistent naming conventions** across scripts
+- **Test variable values** with `echo $VARIABLE_NAME`
+
+### 2. AWS CloudShell Limitations
+- **Home directory space is limited** (~1GB)
+- **Use `/tmp` for large operations** like terraform init
+- **Monitor disk usage** with `df -h`
+
+### 3. Provider Version Management
+- **Lock provider versions** to avoid compatibility issues
+- **Test configuration changes** incrementally
+- **Understand syntax differences** between provider versions
+
+### 4. Environment Management
+- **Re-export variables** after directory changes
+- **Document all required variables** for reproducibility
+- **Use consistent variable naming** patterns
+
+## Prevention Checklist
+
+Before running Terraform operations:
+
+- [ ] Verify all environment variables are set: `echo $VARIABLE_NAME`
+- [ ] Check disk space availability: `df -h`
+- [ ] Confirm working directory: `pwd`
+- [ ] Test AWS CLI commands with variables: `aws grafana describe-workspace --workspace-id $WORKSPACE_ID`
+- [ ] Validate Terraform syntax: `terraform validate`
+- [ ] Check provider versions: `cat .terraform.lock.hcl`
+
+## Emergency Troubleshooting Commands
+
+```bash
+# Check current environment
+echo "Current directory: $(pwd)"
+echo "Available space: $(df -h | grep cloudshell-user)"
+echo "Key variables:"
+echo "  WORKSPACE_ID: $WORKSPACE_ID"
+echo "  GRAFANA_SA_ID: $GRAFANA_SA_ID"
+echo "  TF_VAR_grafana_api_key: $(if [ -n "$TF_VAR_grafana_api_key" ]; then echo "SET"; else echo "NOT SET"; fi)"
+
+# Quick disk cleanup
+rm -rf .terraform/
+rm -f terraform_*.zip
+
+# Reset to working directory
+cd /tmp/terraform-eks-monitoring/eks-monitoring
+```
+
+## Contact Information
+- **Date**: July 17, 2025
+- **Platform**: AWS CloudShell
+- **Status**: Successfully deployed with 34 resources
+
+---
+*This document serves as a comprehensive troubleshooting guide for EKS monitoring deployment using Terraform in AWS CloudShell.*
