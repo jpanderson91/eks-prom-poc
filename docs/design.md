@@ -45,4 +45,11 @@
 
 <img width="1907" height="717" alt="image" src="https://github.com/user-attachments/assets/0e720411-eed4-4d83-bb6a-51f432515f03" />
 
+#creating another demo with an EKS cluster, amazon managed prometheus to scrape metrics, and amazon managed grafana with dashboard
+#eks cluster created using: https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html
+<img width="1894" height="901" alt="image" src="https://github.com/user-attachments/assets/2fa9a754-6585-439b-bf97-3176ae9eefd5" />
+
+
+
+
 
