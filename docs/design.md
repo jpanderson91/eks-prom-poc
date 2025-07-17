@@ -45,25 +45,8 @@
 
 <img width="1907" height="717" alt="image" src="https://github.com/user-attachments/assets/0e720411-eed4-4d83-bb6a-51f432515f03" />
 
-#creating another demo with an EKS cluster, amazon managed prometheus to scrape metrics, and amazon managed grafana with dashboard
 
 
-
-#eks cluster created using: https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html
-
-<img width="1894" height="901" alt="image" src="https://github.com/user-attachments/assets/2fa9a754-6585-439b-bf97-3176ae9eefd5" />
-
-#grafana created using https://docs.aws.amazon.com/grafana/latest/userguide/AMG-create-workspace.html
-
-<img width="1878" height="968" alt="image" src="https://github.com/user-attachments/assets/20349fc1-ee47-4b29-830a-e0cad346ac39" />
-
-
-#prometheus created using https://docs.aws.amazon.com/prometheus/latest/userguide/AMP-create-workspace.html
-
-<img width="1882" height="522" alt="image" src="https://github.com/user-attachments/assets/0b2a74d1-0cc0-4e43-a31f-2e83ae1be142" />
-
-
-#solution deployed via terraform using guide https://docs.aws.amazon.com/grafana/latest/userguide/solution-eks.html#solution-eks-about
 
 
 
