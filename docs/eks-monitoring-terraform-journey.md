@@ -4,6 +4,21 @@
 
 This document summarizes my experience following the [AWS Managed Grafana EKS Monitoring Solution](https://docs.aws.amazon.com/grafana/latest/userguide/solution-eks.html#solution-eks-about) guide. It covers the prerequisites, what was deployed, and the troubleshooting steps I performed to successfully set up end-to-end monitoring for an EKS cluster using Terraform, Prometheus, and Grafana.
 
+## Screenshots
+
+## EKS Cluster
+
+<img width="1893" height="801" alt="image" src="https://github.com/user-attachments/assets/f912cafd-ad13-470d-95fa-e7b4522daa57" />
+
+## AMP
+
+<img width="1902" height="479" alt="image" src="https://github.com/user-attachments/assets/969526aa-71ba-44a5-9c17-a611c3ac0d74" />
+
+
+## AMG
+
+<img width="1872" height="971" alt="image" src="https://github.com/user-attachments/assets/a21443df-4caf-4fde-9840-b419e9d966e8" />
+
 ---
 
 ## Prerequisites Satisfied
@@ -128,18 +143,4 @@ AWS Observability Terraform Modules
 This document demonstrates hands-on experience with AWS EKS, Prometheus, Grafana, and Terraform, including troubleshooting and best practices for cloud-native monitoring deployments.
 
 
-#eks cluster created using: https://docs.aws.amazon.com/eks/latest/userguide/getting-started-console.html
 
-<img width="1894" height="901" alt="image" src="https://github.com/user-attachments/assets/2fa9a754-6585-439b-bf97-3176ae9eefd5" />
-
-#grafana created using https://docs.aws.amazon.com/grafana/latest/userguide/AMG-create-workspace.html
-
-<img width="1878" height="968" alt="image" src="https://github.com/user-attachments/assets/20349fc1-ee47-4b29-830a-e0cad346ac39" />
-
-
-#prometheus created using https://docs.aws.amazon.com/prometheus/latest/userguide/AMP-create-workspace.html
-
-<img width="1882" height="522" alt="image" src="https://github.com/user-attachments/assets/0b2a74d1-0cc0-4e43-a31f-2e83ae1be142" />
-
-
-#solution deployed via terraform using guide https://docs.aws.amazon.com/grafana/latest/userguide/solution-eks.html#solution-eks-about
