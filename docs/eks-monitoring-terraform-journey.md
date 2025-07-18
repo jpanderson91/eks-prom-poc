@@ -15,6 +15,15 @@
 
 <img width="1872" height="971" alt="image" src="https://github.com/user-attachments/assets/a21443df-4caf-4fde-9840-b419e9d966e8" />
 
+#completion via console
+
+<img width="1600" height="968" alt="image" src="https://github.com/user-attachments/assets/7e2777dd-85a2-4072-923b-5ce6b738c2e6" />
+
+#dashboard deployed via terraform
+
+<img width="1906" height="1013" alt="image" src="https://github.com/user-attachments/assets/0e4a7711-411a-46f0-967f-16eaa9074d48" />
+
+
 # AWS EKS Monitoring Solution Deployment with Prometheus, Grafana, and Terraform
 
 ## Overview
