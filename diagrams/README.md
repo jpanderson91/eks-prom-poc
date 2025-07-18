@@ -240,16 +240,16 @@ graph TB
         end
         
         subgraph "Summary"
-            Summary["📈 Total Summary<br/>• Total Targets: 5<br/>• Up: 5 | Down: 0 | Unknown: 0<br/>• Total Samples: 2,847 metrics<br/>• Last Scrape Cycle: Complete"]
+            TargetSummary["📈 Total Summary<br/>• Total Targets: 5<br/>• Up: 5 | Down: 0 | Unknown: 0<br/>• Total Samples: 2,847 metrics<br/>• Last Scrape Cycle: Complete"]
         end
     end
     
     %% Connections
-    PromExample --> Summary
-    NodeExporter1 --> Summary
-    NodeExporter2 --> Summary
-    KubeState --> Summary
-    PrometheusServer --> Summary
+    PromExample --> TargetSummary
+    NodeExporter1 --> TargetSummary
+    NodeExporter2 --> TargetSummary
+    KubeState --> TargetSummary
+    PrometheusServer --> TargetSummary
     
     %% Styling
     classDef application fill:#FF5722,stroke:#D84315,stroke-width:2px,color:#fff
@@ -262,7 +262,7 @@ graph TB
     class NodeExporter1,NodeExporter2 infrastructure
     class KubeState kubernetes
     class PrometheusServer prometheus
-    class Summary summary
+    class TargetSummary summary
 ```
 
 ---
