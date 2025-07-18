@@ -46,7 +46,82 @@ Both implementations provide comprehensive monitoring, alerting, and visualizati
 └─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
-### **AWS Managed Services Architecture**
+### **Architecture Overview**
+```mermaid
+graph LR
+    subgraph "Developer Workstation"
+        Dev["👨‍💻 Developer"]
+        YAML["📄 YAML Manifests"]
+        TerraformCode["🏗️ Terraform Modules"]
+        GitRepo["📚 Git Repository"]
+    end
+    
+    subgraph "Terraform Automation"
+        TFPlan["📋 Terraform Plan"]
+        TFApply["🚀 Terraform Apply"]
+        StateManagement["💾 State Management<br/>S3 Backend"]
+        Validation["✅ Validation & Testing"]
+    end
+    
+    subgraph "AWS Services"
+        subgraph "EKS Cluster"
+            EKSNodes["🖥️ EKS Nodes"]
+            EKSPods["🔄 Application Pods"]
+        end
+        
+        subgraph "Monitoring"
+            PrometheusWS["📊 Prometheus Workspace<br/>(AMP)"]
+            GrafanaWS["📈 Grafana Workspace<br/>(AMG)"]
+        end
+        
+        subgraph "Security"
+            IAMRoles["🛡️ IAM Roles"]
+            IRSA["🔐 IRSA Integration"]
+        end
+    end
+    
+    subgraph "GitOps (Flux CD)"
+        FluxController["⚙️ Flux Controller"]
+        ConfigSync["🔄 Config Sync"]
+        DashboardAutomation["📊 Dashboard Automation"]
+    end
+    
+    %% Workflow
+    Dev --> YAML
+    Dev --> TerraformCode
+    YAML --> GitRepo
+    TerraformCode --> GitRepo
+    
+    GitRepo --> TFPlan
+    TFPlan --> TFApply
+    TFApply --> StateManagement
+    TFApply --> Validation
+    
+    TFApply --> EKSNodes
+    TFApply --> PrometheusWS
+    TFApply --> GrafanaWS
+    TFApply --> IAMRoles
+    
+    EKSNodes --> EKSPods
+    IAMRoles --> IRSA
+    IRSA --> EKSPods
+    
+    GitRepo --> FluxController
+    FluxController --> ConfigSync
+    ConfigSync --> DashboardAutomation
+    DashboardAutomation --> GrafanaWS
+    
+    %% Styling
+    classDef developer fill:#4CAF50,stroke:#388E3C,stroke-width:2px,color:#fff
+    classDef terraform fill:#623CE4,stroke:#5A32D3,stroke-width:2px,color:#fff
+    classDef aws fill:#FF9900,stroke:#FF6600,stroke-width:2px,color:#fff
+    classDef gitops fill:#326CE5,stroke:#1565C0,stroke-width:2px,color:#fff
+    
+    class Dev,YAML,TerraformCode,GitRepo developer
+    class TFPlan,TFApply,StateManagement,Validation terraform
+    class EKSNodes,EKSPods,PrometheusWS,GrafanaWS,IAMRoles,IRSA aws
+    class FluxController,ConfigSync,DashboardAutomation gitops
+```
 ```
 ┌─────────────────────────────────────────────────────────────────────────────────┐
 │                        AWS Managed Services Monitoring                         │
