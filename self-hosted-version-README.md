@@ -43,6 +43,87 @@ Screenshots are included to illustrate:
 
 ## 🎯 Features
 
+**🎨 Visual Architecture**:
+```mermaid
+graph TB
+    subgraph "Self-Hosted EKS Monitoring Platform"
+        subgraph "EKS Cluster"
+            Node1["🖥️ Node 1<br/>ip-192-168-204-164"]
+            Node2["🖥️ Node 2<br/>ip-192-168-3-51"]
+            
+            subgraph "Monitoring Pods"
+                Pod1["🔄 prom-example<br/>/metrics"]
+                Pod2["🔄 node-exporter<br/>/metrics"]
+                Pod3["🔄 kube-state-metrics<br/>/metrics"]
+            end
+            
+            subgraph "Prometheus Stack"
+                Prometheus["📊 Prometheus Server<br/>prometheus-kube-prometheus-prometheus"]
+                PVC["💾 PVC<br/>Data Persistence"]
+                Service["🔗 Service<br/>prometheus-operated"]
+            end
+            
+            subgraph "Grafana Stack"
+                Grafana["📈 Grafana Server<br/>prometheus-grafana"]
+                GrafanaService["🔗 Service<br/>prometheus-grafana"]
+                ConfigMap["⚙️ ConfigMap<br/>Dashboard Config"]
+            end
+        end
+        
+        subgraph "External Services"
+            LoadBalancer["🌐 LoadBalancer<br/>External Access"]
+            NodePort["🔗 NodePort<br/>9090, 3000"]
+        end
+        
+        subgraph "Configuration Management"
+            ServiceMonitor["📋 ServiceMonitor<br/>Target Discovery"]
+            PrometheusRule["📏 PrometheusRule<br/>Recording & Alerting"]
+            Values["📄 values.yaml<br/>Helm Configuration"]
+        end
+    end
+    
+    %% Data Flow
+    Pod1 --> ServiceMonitor
+    Pod2 --> ServiceMonitor
+    Pod3 --> ServiceMonitor
+    Node1 --> Pod1
+    Node1 --> Pod2
+    Node2 --> Pod3
+    
+    ServiceMonitor --> Prometheus
+    PrometheusRule --> Prometheus
+    Prometheus --> PVC
+    Service --> Prometheus
+    
+    Prometheus --> Grafana
+    ConfigMap --> Grafana
+    GrafanaService --> Grafana
+    
+    LoadBalancer --> NodePort
+    NodePort --> Service
+    NodePort --> GrafanaService
+    
+    Values --> ServiceMonitor
+    Values --> PrometheusRule
+    Values --> Prometheus
+    Values --> Grafana
+    
+    %% Styling
+    classDef eksNode fill:#FF9900,stroke:#FF6600,stroke-width:2px,color:#fff
+    classDef prometheus fill:#E6522C,stroke:#CC2936,stroke-width:2px,color:#fff
+    classDef grafana fill:#F46800,stroke:#E55100,stroke-width:2px,color:#fff
+    classDef config fill:#4CAF50,stroke:#2E7D32,stroke-width:2px,color:#fff
+    classDef pods fill:#326CE5,stroke:#1565C0,stroke-width:2px,color:#fff
+    classDef external fill:#9C27B0,stroke:#7B1FA2,stroke-width:2px,color:#fff
+    
+    class Node1,Node2 eksNode
+    class Prometheus,PVC,Service,PrometheusRule prometheus
+    class Grafana,GrafanaService,ConfigMap grafana
+    class ServiceMonitor,Values config
+    class Pod1,Pod2,Pod3 pods
+    class LoadBalancer,NodePort external
+```
+
 - ✅ Validated Prometheus targets with full metric ingestion
 - ✅ Grafana dashboard with panels showing:
   - HTTP request rate
