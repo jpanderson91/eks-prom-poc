@@ -159,31 +159,48 @@ graph LR
 
 ```
 eks-prom-poc/
-├── README.md                           # This file - project overview
+├── README.md                           # Main project overview & portfolio showcase
 ├── self-hosted-version-README.md       # Self-hosted implementation guide
-├── terraform-version-README.md         # AWS managed services portfolio
+├── terraform-version-README.md         # AWS managed services portfolio version
 │
 ├── cluster/                            # Self-hosted Kubernetes configurations
 │   ├── cluster.yaml                   # EKS cluster definition (eksctl)
-│   ├── prometheus-*.yaml              # Prometheus components
-│   ├── example-*.yaml                 # Demo applications
-│   └── prom-example-monitor.yaml      # ServiceMonitor definitions
+│   ├── prometheus-minimal.yaml        # Minimal Prometheus setup
+│   ├── prometheus-example-app.yaml    # Demo application deployment
+│   ├── example-service.yaml           # Sample service definition
+│   ├── example-servicemonitor.yaml    # ServiceMonitor for auto-discovery
+│   └── prom-example-monitor.yaml      # Custom monitoring configuration
 │
 ├── helm/                               # Helm chart configurations
 │   └── values.yaml                    # Custom Prometheus/Grafana settings
 │
-├── terraform-managed-services/         # AWS managed services approach
+├── terraform-managed-services/         # 🆕 AWS managed services approach
 │   ├── README.md                      # Terraform implementation guide
 │   ├── main.tf                        # Primary Terraform configuration
-│   ├── variables.tf                   # Input variables
-│   ├── outputs.tf                     # Output values
+│   ├── variables.tf                   # Input variables & customization
+│   ├── outputs.tf                     # Output values & resource info
 │   └── versions.tf                    # Provider version constraints
 │
+├── diagrams/                           # 🆕 Professional architecture diagrams
+│   └── README.md                      # Mermaid diagrams collection
+│       ├── Main Architecture Overview  # Complete EKS monitoring platform
+│       ├── Terraform Workflow         # Infrastructure automation flow
+│       ├── Dashboard Layout           # Grafana dashboard structure
+│       ├── Prometheus Targets         # Metrics collection endpoints
+│       └── Deployment Flow           # Step-by-step deployment process
+│
 └── docs/                               # Comprehensive documentation
-    ├── design.md                      # Architecture and screenshots
-    ├── eks-monitoring-terraform-journey.md
+    ├── design.md                      # Architecture decisions & screenshots
+    ├── eks-monitoring-terraform-journey.md  # Implementation journey
     └── EKS Monitoring Terraform Deployment - Troubleshooting Guide
 ```
+
+### 🆕 **New Portfolio Features**
+- **📊 Professional Diagrams**: Mermaid-based architecture visualizations
+- **🏗️ Terraform Modules**: Production-ready infrastructure as code
+- **📚 Multiple Approaches**: Self-hosted vs. managed services comparison
+- **🎨 Visual Documentation**: Color-coded diagrams with real metrics
+- **🔧 Complete Examples**: Working configurations for both approaches
 
 ---
 
