@@ -122,6 +122,42 @@ export TF_VAR_grafana_api_key=$(aws grafana create-workspace-service-account-tok
   --output text)
 ```
 
+### 5. Flux S3 Dashboard Provisioning - Deep Dive
+
+**Issue:**  
+Flux source-controller unable to access AWS public S3 bucket for automated dashboard provisioning.
+
+**Investigation Results:**
+```bash
+# S3 bucket consistently returns 403 Forbidden across all regions
+for region in us-east-1 us-west-2 eu-west-1; do
+  AWS_DEFAULT_REGION=$region aws s3api head-bucket --bucket aws-observability-solutions
+done
+# Result: 403 Forbidden for all regions
+
+# Service account properly configured with IRSA
+kubectl get serviceaccount source-controller -n flux-system -o yaml
+# Result: ✅ Correct IAM role annotation and AWS environment variables
+
+# IAM permissions enhanced with broader S3 access
+aws iam create-policy-version --policy-arn arn:aws:iam::643275918916:policy/FluxS3ObservabilityAccess
+# Result: ✅ Enhanced policy applied successfully
+```
+
+**Root Cause Analysis:**
+1. **AWS S3 Bucket Access**: The `aws-observability-solutions` bucket has access restrictions that prevent automated access
+2. **GitHub Repository Issue**: Original repository URL incorrect or private
+3. **Bucket Provider Configuration**: Required specific S3 provider settings
+
+**Multiple Solutions Attempted:**
+- ✅ Enhanced IAM policies with broader S3 permissions
+- ✅ Anonymous S3 bucket access configuration  
+- ✅ Multi-region bucket access testing
+- ✅ IRSA role validation
+- ❌ GitHub repository source (repository not found)
+
+**Working Solution:** Use correct AWS samples repository for GitOps-based dashboard provisioning
+
 ## Final Working Configuration
 
 ### Working Directory Structure
