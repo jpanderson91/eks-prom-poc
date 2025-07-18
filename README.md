@@ -365,7 +365,7 @@ Feel free to:
 **🤝 Get in touch**:
 - **GitHub Issues**: For technical questions and bug reports
 - **Discussions**: For architecture discussions and use case questions
-- **LinkedIn**: [Connect for professional discussions](https://linkedin.com/in/your-profile)
+- **LinkedIn**: [Connect for professional discussions](www.linkedin.com/in/john-anderson-a67845104)
 
 ---
 
