@@ -542,7 +542,7 @@ I'm passionate about building robust, scalable cloud infrastructure that drives 
 **🤝 Let's Connect**:
 - **LinkedIn**: [Connect with me](https://linkedin.com/in/your-profile)
 - **GitHub**: [@jpanderson91](https://github.com/jpanderson91)
-- **Email**: [your.email@example.com](mailto:your.email@example.com)
+- **Email**: [your.email@example.com](mailto:jpanderson91@yahoo.com)
 
 **🎥 Want to See More?**
 - **Live Demo**: [Schedule a technical walkthrough](https://calendly.com/your-calendar)
