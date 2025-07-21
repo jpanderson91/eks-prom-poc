@@ -256,7 +256,7 @@ terraform plan
 terraform apply
 ```
 
-**📚 Full Documentation**: [AWS Managed Services Portfolio](./terraform-version-README.md)
+**📚 Full Documentation**: [AWS Managed Services Implementation Guide](./terraform-version-README.md)
 
 ---
 
