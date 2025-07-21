@@ -540,12 +540,11 @@ eks-prom-poc/
 I'm passionate about building robust, scalable cloud infrastructure that drives business results. This project represents just one example of how I approach complex technical challenges with strategic thinking and hands-on expertise.
 
 **🤝 Let's Connect**:
-- **LinkedIn**: [Connect with me](https://linkedin.com/in/your-profile)
+- **LinkedIn**: [Connect with me](www.linkedin.com/in/john-anderson-a67845104)
 - **GitHub**: [@jpanderson91](https://github.com/jpanderson91)
 - **Email**: [your.email@example.com](mailto:jpanderson91@yahoo.com)
 
 **🎥 Want to See More?**
-- **Live Demo**: [Schedule a technical walkthrough](https://calendly.com/your-calendar)
 - **Technical Deep Dive**: Available for system architecture discussions
 - **Code Review**: Happy to walk through implementation details
 
