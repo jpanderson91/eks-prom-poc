@@ -3,7 +3,7 @@
 grafana:
   service:
     type: ClusterIP
-  adminPassword: ChangeMe123
+  adminPassword: 
 prometheus:
   prometheusSpec:
     retention: "2h"
