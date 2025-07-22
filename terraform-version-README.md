@@ -15,8 +15,6 @@
 
 **John Anderson** - Lead Cloud Engineer with expertise in designing and implementing scalable, production-ready monitoring solutions on AWS. Specialized in Infrastructure as Code, Kubernetes orchestration, and cloud-native observability platforms. Proven track record of delivering complex technical projects with measurable business impact.
 
-**🎯 Currently seeking**: Lead Cloud Engineer positions where I can leverage my AWS, Terraform, and Kubernetes expertise to build enterprise-scale infrastructure solutions.
-
 ---
 
 ## 🔧 Core Technical Skills
